@@ -1,0 +1,182 @@
+Задание 1.
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int size = 10;
+        int[] numbers = new int[size];
+        Random random = new Random();
+
+        // Заполнение массива случайными числами
+        for (int i = 0; i < size; i++)
+        {
+            numbers[i] = random.Next(100); // Генерация случайного числа от 0 до 99
+        }
+
+        // Вывод массива в консоль
+        Console.Write("Массив случайных чисел: ");
+        foreach (int number in numbers)
+        {
+            Console.Write(number + " ");
+        }
+        Console.WriteLine();
+
+        // Поиск минимального элемента
+        int minIndex = 0;
+        for (int i = 1; i < size; i++)
+        {
+            if (numbers[i] < numbers[minIndex])
+            {
+                minIndex = i;
+            }
+        }
+
+        // Вывод индекса минимального элемента в консоль
+        Console.WriteLine("Индекс минимального элемента: " + minIndex);
+    }
+}
+Задание 2.
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        List<int> numbers = new List<int>();
+        int input;
+        
+        Console.WriteLine("Введите числа (введите 0 для завершения ввода):");
+        
+        while (true)
+        {
+            input = Convert.ToInt32(Console.ReadLine());
+            if (input == 0)
+            {
+                break;
+            }
+            numbers.Add(input);
+        }
+        
+        int sum = 0;
+        int product = 1;
+        
+        foreach (int num in numbers)
+        {
+            sum += num;
+            product *= num;
+        }
+        
+        double average = (double)sum / numbers.Count;
+        
+        Console.WriteLine("Сумма всех элементов: " + sum);
+        Console.WriteLine("Произведение всех элементов: " + product);
+        Console.WriteLine("Среднее значение: " + average);
+    }
+}
+Задание 3.
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        List<string> elements = new List<string>();
+        string input;
+        
+        Console.WriteLine("Введите элементы (нажмите Enter без ввода для завершения):");
+        
+        while (true)
+        {
+            input = Console.ReadLine();
+            if (string.IsNullOrEmpty(input))
+            {
+                break;
+            }
+            elements.Add(input);
+        }
+        
+        string shortest = elements[0];
+        string longest = elements[0];
+        
+        foreach (string element in elements)
+        {
+            if (element.Length < shortest.Length)
+            {
+                shortest = element;
+            }
+            if (element.Length > longest.Length)
+            {
+                longest = element;
+            }
+        }
+        
+        Console.WriteLine("Самый короткий элемент: " + shortest);
+        Console.WriteLine("Самый длинный элемент: " + longest);
+    }
+}
+Задание 4.
+using System;
+
+class Program
+{
+    static int[] GenerateRandomArray(int start, int end, int length)
+    {
+        int[] array = new int[length];
+        Random random = new Random();
+
+        for (int i = 0; i < length; i++)
+        {
+            array[i] = random.Next(start, end + 1);
+        }
+
+        return array;
+    }
+
+    static void Main(string[] args)
+    {
+        Console.Write("Введите начало диапазона: ");
+        int start = int.Parse(Console.ReadLine());
+
+        Console.Write("Введите конец диапазона: ");
+        int end = int.Parse(Console.ReadLine());
+
+        Console.Write("Введите длину массива: ");
+        int length = int.Parse(Console.ReadLine());
+
+        int[] array = GenerateRandomArray(start, end, length);
+
+        Console.Write("Элементы массива: ");
+        for (int i = 0; i < length; i++)
+        {
+            Console.Write(array[i] + " ");
+        }
+        Console.WriteLine();
+    }
+}
+Задание 5.
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.Write("Введите строку: ");
+        string input = Console.ReadLine();
+
+        // Определение количества слов
+        int wordCount = input.Split(new char[] { ' ', '\t', '\n' }, StringSplitOptions.RemoveEmptyEntries).Length;
+
+        // Добавление слова "Start" в начало строки
+        string output = "Start " + input;
+
+        // Добавление слова "End" в конец строки
+        output += " End";
+
+        Console.WriteLine("Количество слов: " + wordCount);
+        Console.WriteLine("Результат: " + output);
+    }
+}

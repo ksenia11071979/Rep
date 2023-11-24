@@ -1,0 +1,111 @@
+Задание 1.
+using System;
+
+class Program
+{
+  static void Main() 
+  {
+    string path = "C:\\Users\\public.COPP\\source\\repos\\ConsoleApp2\\bin\\Debug\\net6.0\\input.txt";
+    string[] lines = File.ReadAllLines("input.txt");
+    
+    string selectedNumbers = lines[0];
+    string[] selectNumbersArray = selecnedNumbers.Split();
+    
+    int n = int.Parse(lines[1]);
+    
+    string[] results = new string[n];
+    
+    for (int i = 0; i < n; i++)
+    {
+        string ticket = lines[i + 2];
+        string[] ticketArray = ticket.Split();
+        
+        int count = 0;
+        foreach (string number in selectNumbersArray)
+        {
+            if (Array.Exists(ticketArray, element => element == number))
+            {
+                count++;
+            }
+        }
+        results[i] = count >= 3 ? "Lucky" : "Unlucky";
+    }
+    File.WriteAllLines("output.txt", results);
+  }
+}  
+Задание 2.
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        // Чтение содержимого файла
+        string path = "C:\\Users\\public.COPP\\sourse\\repos\\ConsoleApp2\\bin\\Debug\\net6.0\\nums.txt";
+        string[] lines = File.ReadAllLines("nums.txt");
+
+        // Создание нового списка для хранения нечетных чисел
+        var oddNumbers = new List<string>();
+
+        // Перебор каждой строки из файла
+        foreach (string line in lines)
+        {
+            // Разделение строки на числа
+            string[] numbers = line.Split(' ');
+
+            // Перебор каждого числа в строке
+            foreach (string number in numbers)
+            {
+                // Преобразование числа в int
+                int num = int.Parse(number);
+
+                // Проверка числа на четность
+                if (num % 2 != 0)
+                {
+                    // Добавление нечетного числа в список
+                    oddNumbers.Add(number);
+                }
+            }
+        }
+
+        // Запись нечетных чисел в файл
+        File.WriteAllLines("nums.txt", oddNumbers);
+        
+        Console.WriteLine("Четные числа удалены из файла.");
+    }
+}
+Задание 3.
+using System;
+
+class Program
+{
+  static void Main() 
+  {
+    string inputPath = @"C:\\Users\\public.COPP\\source\\repos\\ConsoleApp2\\bin\\Debug\\net6.0\\input.txt";
+    string outputPath = @"C:\\Users\\public.COPP\\source\\repos\\ConsoleApp2\\bin\\Debug\\net6.0\\input.txt";
+    try
+    {
+        int[] height = File.ReadAllLines(inputPath).Select(int.Parse).ToArray();
+        int maxArea = MaxArea(height);
+        File.WriteAllText(outputPath, "Максимльное количество воды: " + maxArea);
+        Console.WriteLine("Результат успешно записан в файл.");
+    }
+    cath (Exception ex)
+    {
+        Console.WriteLine("Произошла ошибка: " + ex.Message);
+    }
+tatic int MaxArea(int[] height)
+    int maxArea = 0;
+    int left = 0; int right = height.Length - 1;
+    while (left < right)
+    {
+        left++;
+    }
+    else
+    {
+        right--;
+    }
+  }
+  return maxArea
+

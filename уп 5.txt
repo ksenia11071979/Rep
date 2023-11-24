@@ -1,0 +1,131 @@
+Задание 1.
+using System;
+using System.IO;
+using System.Linq;
+class Program
+{
+    static void Main()    
+    {
+        string path = "C:\\Users\\public.COOP\\repos\\ConsoleApp2\\bin\\Debug\\net.6.0\\numsTask1.txt";        
+        string[] lines = File.ReadAllLines("numsTask1.txt");
+        int[] nums = lines.Select(int.Parse).ToArray();
+        int minIndex = Array.IndexOf(nums, nums.Min());
+        long product = 1;        
+        for (int i = minIndex + 1; i < nums.Length; i++)
+        {            
+            product *= nums[i];
+        }        
+        File.WriteAllText("numsTask1.txt", product.ToString());
+    }
+}
+Задание 2.
+using System;
+using System.IO;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        string filePath = "C:\\Users\\public.COOP\\repos\\ConsoleApp2\\bin\\Debug\\net.6.0\\numsTask3.txt";        
+        
+        string[] numbers = File.ReadAllText(filePath).Split(';');
+        float[] sortedNumbers = Array.ConvertAll(numbers, float.Parse);
+        Array.Sort(sortedNumbers);
+        
+        File.WriteAllText(filePath, string.Join(";", sortedNumbers.Select(n => n.ToString())));
+        
+        Console.WriteLine("Числа успешно отсортированы и записаны обратно в файл.");
+    }
+}
+Задание 3.
+using System;
+using System.IO;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        string path = "C:\\Users\\public.COOP\\repos\\ConsoleApp3\\bin\\Debug\\net.6.0\\numsTask1.txt";       
+        string filePath = "numsTask3.txt";
+        int[] numbers = Array.ConvertAll(File.ReadAllText(filePath).Split(' '), int.Parse);
+
+        int minIndex = Array.IndexOf(numbers, numbers.Min());
+        int[] numbersBeforeMin = numbers.Take(minIndex).ToArray();
+        double average = numbersBeforeMin.Length > 0 ? numbersBeforeMin.Average() : 0;
+
+        File.WriteAllText(filePath, average.ToString());
+    }
+}
+Задача 4.
+using System;
+using System.IO;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        string path = "C:\\Users\\public.COOP\\repos\\ConsoleApp3\\bin\\Debug\\net.6.0\\numsTask4.txt";       
+        string fileName = "numsTask4.txt";
+        
+        // Чтение чисел из файла
+        string[] lines = File.ReadAllLines(fileName);
+        int[] nums = Array.ConvertAll(lines, int.Parse);
+
+        // Вычисление максимального числа
+        int maxNum = nums.Max();
+
+        // Вычисление суммы элементов, отличающихся от максимального на 1
+        int sum = nums.Where(num => (num == maxNum - 1) || (num == maxNum + 1)).Sum();
+
+        // Запись результата в файл
+        using (StreamWriter writer = new StreamWriter(fileName))
+        {
+            writer.Write(sum);
+        }
+
+        Console.WriteLine("Результат успешно записан в файл.");
+    }
+}
+Задание 5.
+
+using System;
+using System.IO;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+         string path = "C:\\Users\\public.COOP\\repos\\ConsoleApp3\\bin\\Debug\\net.6.0\\numsTask5.txt";       
+        string filePath = "numsTask5.txt";
+        int[] numbers = File.ReadAllLines(filePath).Select(int.Parse).ToArray();
+
+        int minIndex = Array.IndexOf(numbers, numbers.Min());
+        int maxIndex = Array.IndexOf(numbers, numbers.Max());
+
+        if (minIndex > maxIndex)
+        {
+            int temp = minIndex;
+            minIndex = maxIndex;
+            maxIndex = temp;
+        }
+
+        int sum = 0;
+        int count = 0;
+        for (int i = minIndex + 1; i < maxIndex; i++)
+        {
+            sum += numbers[i];
+            count++;
+        }
+
+        double average = (count == 0) ? 0 : (double)sum / count;
+
+        using (StreamWriter writer = new StreamWriter(filePath, append: true))
+        {
+            writer.WriteLine($"Среднее арифметическое: {average}");
+        }
+    }
+}

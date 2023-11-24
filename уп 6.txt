@@ -1,0 +1,237 @@
+Задание 1.
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        string path = "C:\\Users\\public.COPP\\source\\repos\\ConsoleApp3\\bin\\Debug\\net6.0\\numsTask1.txt";
+        string fileName = "numsTask1.txt";
+        string[] words = File.ReadAllText(fileName).Split(new char[] { ' ', '\n', '\r', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+        string result = "";
+
+        foreach (string word in words)
+        {
+            if (word.Length % 2 != 0)
+            {
+                result += word + " ";
+            }
+        }
+
+        File.WriteAllText(fileName, result);
+    }
+}
+Задание 2.
+using System;
+using System.IO;
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        string path = "C:\\Users\\pulic/COPP\\source\\repos\\ConsoleApp3\\bin\\Debug\\net6/0\\numsTask2.txt";
+        string[] words = File.ReadAllLines(path);
+
+        string result = string.Join(" ", words);
+
+        using (StreamWriter sw = new StreamWriter(path))
+        {
+            sw.Write(result);
+        }
+    }
+}
+Задание 3.
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int number = 20; 
+
+        bool isEven = number % 2 == 0;
+        bool isMultipleOf10 = number % 10 == 0;
+
+        if (isEven && isMultipleOf10)
+        {
+            Console.WriteLine("Число " + number + " четное и кратное 10");
+        }
+        else
+        {
+            Console.WriteLine("Число " + number + " не четное или не кратное 10");
+        }
+    }
+}
+Задание 4.
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int a;
+        Console.WriteLine("Введите положительное число a:");
+        while (true)
+        {
+            if (int.TryParse(Console.ReadLine(), out a))
+            {
+                if (a > 0)
+                {
+                    int sum = 0;
+                    int number;
+                    Console.WriteLine("Введите положительные числа (для завершения введите отрицательное число):");
+                    while (true)
+                    {
+                        if (int.TryParse(Console.ReadLine(), out number))
+                        {
+                            if (number < 0)
+                            {
+                                break;
+                            }
+                            if (number % a == 0)
+                            {
+                                sum += number;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Ошибка ввода, попробуйте снова:");
+                        }
+                    }
+                    Console.WriteLine("Сумма чисел, делящихся на " + a + " нацело: " + sum);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Введите положительное число a:");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Ошибка ввода, введите целое положительное число:");
+            }
+        }
+    }
+}
+Задание 5.
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Введите количество строк: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        Console.Write("Введите количество столбцов: ");
+        int m = Convert.ToInt32(Console.ReadLine());
+
+        int[,] matrix = new int[n, m];
+
+        // Ввод значений для матрицы
+        for (int i = 0; i < n; i++)
+        {
+            Console.WriteLine($"Введите элементы для строки {i + 1}:");
+            for (int j = 0; j < m; j++)
+            {
+                Console.Write($"Элемент {j + 1}: ");
+                matrix[i, j] = Convert.ToInt32(Console.ReadLine());
+            }
+        }
+
+        // Создание обновленной матрицы с дополнительным столбцом
+        int[,] updatedMatrix = new int[n, m + 1];
+
+        for (int i = 0; i < n; i++)
+        {
+            int countOnes = 0;
+            for (int j = 0; j < m; j++)
+            {
+                updatedMatrix[i, j] = matrix[i, j];
+                if (matrix[i, j] == 1)
+                {
+                    countOnes++;
+                }
+            }
+            // Делаем количество единиц в каждой строке четным
+            if (countOnes % 2 != 0)
+            {
+                updatedMatrix[i, m] = 1;
+            }
+        }
+
+        // Вывод исходной матрицы
+        Console.WriteLine("Исходная матрица:");
+        PrintMatrix(matrix, n, m);
+
+        // Вывод обновленной матрицы
+        Console.WriteLine("Матрица с дополнительным столбцом:");
+        PrintMatrix(updatedMatrix, n, m + 1);
+    }
+
+    static void PrintMatrix(int[,] matrix, int n, int m)
+    {
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < m; j++)
+            {
+                Console.Write(matrix[i, j] + " ");
+            }
+            Console.WriteLine();
+        }
+    }
+}
+Задание 6.
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        Random random = new Random();
+        List<double> originalArray = new List<double>();
+
+        // Заполнение массива случайными числами
+        for (int i = 0; i < random.Next(5, 15); i++)
+        {
+            double randomNumber = (random.NextDouble() - 0.5) * 20; // Генерируем случайное дробное число от -10 до 10
+            originalArray.Add(randomNumber);
+        }
+
+        List<double> positiveNumbers = new List<double>();
+        List<double> negativeNumbers = new List<double>();
+
+        foreach (var number in originalArray)
+        {
+            if (number > 0)
+            {
+                positiveNumbers.Add(number);
+            }
+            else if (number < 0)
+            {
+                negativeNumbers.Add(number);
+            }
+        }
+
+        Console.WriteLine("Исходный массив:");
+        PrintArray(originalArray);
+        Console.WriteLine("Положительные числа:");
+        PrintArray(positiveNumbers);
+        Console.WriteLine("Отрицательные числа:");
+        PrintArray(negativeNumbers);
+    }
+
+    static void PrintArray(List<double> array)
+    {
+        foreach (var number in array)
+        {
+            Console.Write(number + " ");
+        }
+        Console.WriteLine();
+        Console.WriteLine();
+    }
+}

@@ -1,0 +1,165 @@
+Задание 1.
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Введите целое положительное число:");
+        int n = int.Parse(Console.ReadLine());
+
+        int result = 1;
+        for (int i = 3; i <= n; i += 3)
+        {
+            result *= i;
+        }
+
+        Console.WriteLine("Произведение натуральных чисел, кратных трём и не превышающих " + n + ": " + result);
+    }
+}
+Задание 2.
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        string path = "C:\\Users\\publi.COPP\\source\\repos\\ConsoleApp2\\bin\\Debug\\net6.0\\numsTask2.txt";
+        string[] lines = File.ReadAllLines("numsTask2.txt");
+        double sum = 0;
+
+        foreach (var line in lines)
+        {
+            string[] numbers = line.Split(';');
+            foreach (var number in numbers)
+            {
+                double num = double.Parse(number);
+                if (num <= 0)
+                {
+                    break;
+                }
+                else
+                {
+                    sum += num;
+                }
+            }
+        }
+
+        using (StreamWriter sw = new StreamWriter("numsTask2.txt", true))
+        {
+            sw.WriteLine($"Сумма положительных чисел: {sum}");
+        }
+    }
+}
+Задание 3.
+using System;
+using System.IO;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        string path = "C:\\Users\\publi.COPP\\source\\repos\\ConsoleApp2\\bin\\Debug\\net6.0\\numsTask3.txt"; 
+        string[] numbers = File.ReadAllText(path).Split(',');
+
+        int[] nums = Array.ConvertAll(numbers, int.Parse);
+
+        int min = nums.Min();
+        int max = nums.Max();
+
+        double result = (double)min / max;
+
+        using (StreamWriter writer = new StreamWriter(path, true))
+        {
+            writer.WriteLine("\n" + result);
+        }
+    }
+}
+Задание 4.
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        // Считываем числа из файла
+        string path = "C:\\Users\\publi.COPP\\source\\repos\\ConsoleApp2\\bin\\Debug\\net6.0\\numsTask4.txt";
+        string[] numbers = File.ReadAllText("numsTask4.txt").Split(' ');
+
+        // Подсчитываем количество одинаковых рядом стоящих чисел
+        int count = 0;
+        for (int i = 1; i < numbers.Length; i++)
+        {
+            if (numbers[i] == numbers[i - 1])
+            {
+                count++;
+            }
+        }
+
+        // Записываем результат обратно в файл
+        File.WriteAllText("numsTask4.txt", count.ToString());
+    }
+}
+Задание 5.
+using System;
+class Program
+{
+    static void Main()    
+    {
+        Console.Write("Введите значение a: ");        
+        double a = Convert.ToDouble(Console.ReadLine());
+        Console.Write("Введите значение b: ");
+        double b = Convert.ToDouble(Console.ReadLine());
+        if (-1 <= a && a <= 3 && -2 <= b && b <= 4)        
+        {
+            Console.WriteLine($"Точка с координатами ({a}, {b}) принадлежит заштрихованной области.");        
+            
+        }
+        else
+        {            
+            Console.WriteLine($"Точка с координатами ({a}, {b}) не принадлежит заштрихованной области.");
+        }    
+    }
+}
+Задание 6.
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Ввод координат точки
+        Console.WriteLine("Введите координаты точки:");
+        Console.Write("a: ");
+        double a = double.Parse(Console.ReadLine());
+        Console.Write("b: ");
+        double b = double.Parse(Console.ReadLine());
+
+        // Координаты вершин треугольника
+        double x1 = -2;
+        double y1 = 2;
+        double x2 = -3;
+        double y2 = 2;
+        double x3 = (x1 + x2) / 2;
+        double y3 = y1 + ((x3 - x1) * (y2 - y1)) / (x2 - x1);
+
+        // Вычисление площадей треугольников
+        double s = Math.Abs((1.0 / 2.0) * ((x1 * y2 + x2 * y3 + x3 * y1) - (x1 * y3 + x3 * y2 + x2 * y1)));
+        double s1 = Math.Abs((1.0 / 2.0) * ((x1 * b + a * y3 + x3 * y1) - (a * y1 + x3 * b + x1 * y3)));
+        double s2 = Math.Abs((1.0 / 2.0) * ((x3 * b + a * y2 + x2 * y3) - (a * y3 + x2 * b + x3 * y2)));
+        double s3 = Math.Abs((1.0 / 2.0) * ((x2 * b + a * y1 + x1 * y2) - (a * y2 + x1 * b + x2 * y1)));
+
+        // Проверка принадлежности точки заштрихованной области
+        if (s1 + s2 + s3 == s)
+        {
+            Console.WriteLine("Точка принадлежит заштрихованной области");
+        }
+        else
+        {
+            Console.WriteLine("Точка не принадлежит заштрихованной области");
+        }
+    }
+}

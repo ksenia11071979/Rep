@@ -1,0 +1,203 @@
+Задание 1.
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        int[] collection = new int[100];
+
+        int number = 100;
+        for (int i = 0; i < collection.Length; i++)
+        {
+            collection[i] = number;
+            number -= 3;
+        }
+
+        Console.WriteLine("Элементы коллекции:");
+        for (int i = 0; i < collection.Length; i++)
+        {
+            Console.Write(collection[i] + " ");
+        }
+        Console.WriteLine();
+    }
+}
+Задание 2.
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        int[] array = new int[10];
+        int number = 1;
+
+        for (int i = 0; i < array.Length; i++)
+        {
+            array[i] = number;
+            number += 2;
+        }
+
+        Console.WriteLine("Элементы массива:");
+        for (int i = 0; i < array.Length; i++)
+        {
+            Console.Write(array[i] + " ");
+        }
+        Console.WriteLine();
+    }
+}
+Задача 3.
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int n = 5; // Размерность матрицы (может быть любым положительным числом)
+
+        int[,] matrix = new int[n, n];
+
+        // Заполнение первой строки и первого столбца
+        for (int i = 0; i < n; i++)
+        {
+            matrix[0, i] = 1; // Первая строка
+            matrix[i, 0] = 1; // Первый столбец
+        }
+
+        // Заполнение оставшихся элементов
+        for (int i = 1; i < n; i++)
+        {
+            for (int j = 1; j < n; j++)
+            {
+                matrix[i, j] = matrix[i - 1, j] + matrix[i, j - 1];
+            }
+        }
+
+        // Вывод матрицы
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                Console.Write(matrix[i, j] + " ");
+            }
+            Console.WriteLine(); // Переход на новую строку для следующей строки матрицы
+        }
+    }
+}
+Задание 4.
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[,] temp = new int[12,30];
+        Random rnd = new Random();
+        string[] months = {"Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"};
+        Console.Write("          ");
+        for (int day = 1; day <= 30; day++)
+        {
+            Console.Write($"{day,4}");
+        }
+        Console.WriteLine();
+        for (int a = 0; a < 12; a++)
+        {
+            Console.Write($"{months[a],-10}");
+            int sum = 0;
+            for (int j = 0; j < 30; j++)
+            {
+                if (a >= 0 && a <= 1 || a == 11)
+                {
+                    temp[a, j] = rnd.Next(-40, -7);
+                }
+                else if (a >= 2 && a <= 4)
+                {
+                    temp[a, j] = rnd.Next(-10, 12);
+                }
+                else if (a >= 5 && a <= 7)
+                {
+                    temp[a, j] = rnd.Next(13, 33);
+                }
+                else if (a >= 8 && a <= 10)
+                {
+                    temp[a,j] = rnd.Next(-10, 16);
+                }
+                sum += temp[a,j];
+                Console.Write($"{temp[a,j],4}");
+            }
+            float average = (float)sum / 30;
+            Console.Write($" Среднее: {average,4:F2}");
+            Console.WriteLine();
+        }
+    }
+}                                                                                                                                                                                     
+Задание 5.
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        Dictionary<string, int[]> monthlyTemperatures = new Dictionary<string, int[]>
+        {
+            {"Январь", new int[30]},
+            {"Февраль", new int[30]},
+            {"Март", new int[30]},
+            {"Апрель", new int[30]},
+            {"Май", new int[30]},
+            {"Июнь", new int[30]},
+            {"Июль", new int[30]},
+            {"Август", new int[30]},
+            {"Сентябрь", new int[30]},
+            {"Октябрь", new int[30]},
+            {"Ноябрь", new int[30]},
+            {"Декабрь", new int[30]}
+        };
+
+        Random rnd = new Random();
+        foreach (var month in monthlyTemperatures)
+        {
+            for (int day = 0; day < 30; day++)
+            {
+                if (Array.IndexOf(new string[] { "Январь", "Февраль", "Декабрь" }, month.Key) != -1)
+                {
+                    month.Value[day] = rnd.Next(-40, -7);
+                }
+                else if (Array.IndexOf(new string[] { "Март", "Апрель", "Май" }, month.Key) != -1)
+                {
+                    month.Value[day] = rnd.Next(-10, 12);
+                }
+                else if (Array.IndexOf(new string[] { "Июнь", "Июль", "Август" }, month.Key) != -1)
+                {
+                    month.Value[day] = rnd.Next(13, 33);
+                }
+                else
+                {
+                    month.Value[day] = rnd.Next(-10, 16);
+                }
+            }
+        }
+
+        Dictionary<string, float> averageTemperatures = CalculateAverageTemperatures(monthlyTemperatures);
+        foreach (var month in averageTemperatures)
+        {
+            Console.WriteLine($"{month.Key}: {month.Value:F2}");
+        }
+    }
+
+    static Dictionary<string, float> CalculateAverageTemperatures(Dictionary<string, int[]> monthlyTemperatures)
+    {
+        Dictionary<string, float> averageTemperatures = new Dictionary<string, float>();
+        foreach (var month in monthlyTemperatures)
+        {
+            float sum = 0;
+            for (int i = 0; i < month.Value.Length; i++)
+            {
+                sum += month.Value[i];
+            }
+            averageTemperatures.Add(month.Key, sum / month.Value.Length);
+        }
+        return averageTemperatures;
+    }
+}
